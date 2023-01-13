@@ -2,20 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_list_container"
+    android:id="@+id/coin_list_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginStart="@dimen/container_horizontal_margin"
     android:layout_marginEnd="@dimen/container_horizontal_margin">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/item_list"
+        android:id="@+id/coin_list"
         android:name="com.mugveiga.coinsalert.ItemListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
-        tools:context="com.mugveiga.coinsalert.ItemDetailHostActivity"
-        tools:listitem="@layout/item_list_content" />
+        tools:context="com.mugveiga.coinsalert.MainActivity"
+        tools:listitem="@layout/coin_list_content" />
 </androidx.constraintlayout.widget.ConstraintLayout>

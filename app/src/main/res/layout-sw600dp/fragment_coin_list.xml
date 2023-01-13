@@ -1,12 +1,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_list_container"
+    android:id="@+id/coin_list_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/item_list"
+        android:id="@+id/coin_list"
         android:name="com.mugveiga.coinsalert.ItemListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -17,8 +17,8 @@
         app:layout_constraintEnd_toStartOf="@id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context="com.mugveiga.coinsalert.ItemDetailHostActivity"
-        tools:listitem="@layout/item_list_content" />
+        tools:context="com.mugveiga.coinsalert.MainActivity"
+        tools:listitem="@layout/coin_list_content" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -27,7 +27,7 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="@dimen/item_width" />
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/item_detail_nav_container"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"

@@ -2,7 +2,6 @@ package com.mugveiga.coinsalert
 
 import android.content.ClipData
 import android.content.ClipDescription
-import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -14,9 +13,9 @@ import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.mugveiga.coinsalert.placeholder.PlaceholderContent;
-import com.mugveiga.coinsalert.databinding.FragmentItemListBinding
-import com.mugveiga.coinsalert.databinding.ItemListContentBinding
+import com.mugveiga.coinsalert.databinding.CoinListContentBinding
+import com.mugveiga.coinsalert.databinding.FragmentCoinListBinding
+import com.mugveiga.coinsalert.placeholder.PlaceholderContent
 
 /**
  * A Fragment representing a list of Pings. This fragment
@@ -27,7 +26,7 @@ import com.mugveiga.coinsalert.databinding.ItemListContentBinding
  * item details side-by-side using two vertical panes.
  */
 
-class ItemListFragment : Fragment() {
+class CoinListFragment : Fragment() {
 
     /**
      * Method to intercept global key events in the
@@ -42,19 +41,17 @@ class ItemListFragment : Fragment() {
                 "Undo (Ctrl + Z) shortcut triggered",
                 Toast.LENGTH_LONG
             ).show()
-            true
         } else if (event.keyCode == KeyEvent.KEYCODE_F && event.isCtrlPressed) {
             Toast.makeText(
                 v.context,
                 "Find (Ctrl + F) shortcut triggered",
                 Toast.LENGTH_LONG
             ).show()
-            true
         }
         false
     }
 
-    private var _binding: FragmentItemListBinding? = null
+    private var _binding: FragmentCoinListBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -63,9 +60,9 @@ class ItemListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        _binding = FragmentItemListBinding.inflate(inflater, container, false)
+        _binding = FragmentCoinListBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -75,7 +72,7 @@ class ItemListFragment : Fragment() {
 
         ViewCompat.addOnUnhandledKeyEventListener(view, unhandledKeyEventListenerCompat)
 
-        val recyclerView: RecyclerView = binding.itemList
+        val recyclerView: RecyclerView = binding.coinList
 
         // Leaving this not using view binding as it relies on if the view is visible the current
         // layout configuration (layout, layout-sw600dp)
@@ -102,7 +99,7 @@ class ItemListFragment : Fragment() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-            val binding = ItemListContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            val binding = CoinListContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return ViewHolder(binding)
 
         }
@@ -115,34 +112,32 @@ class ItemListFragment : Fragment() {
             with(holder.itemView) {
                 tag = item
                 setOnClickListener { itemView ->
-                    val item = itemView.tag as PlaceholderContent.PlaceholderItem
+                    val thisItem = itemView.tag as PlaceholderContent.PlaceholderItem
                     val bundle = Bundle()
                     bundle.putString(
-                        ItemDetailFragment.ARG_ITEM_ID,
-                        item.id
+                        CoinDetailFragment.ARG_ITEM_ID,
+                        thisItem.id
                     )
                     if (itemDetailFragmentContainer != null) {
                         itemDetailFragmentContainer.findNavController()
                             .navigate(R.id.fragment_item_detail, bundle)
                     } else {
-                        itemView.findNavController().navigate(R.id.show_item_detail, bundle)
+                        itemView.findNavController().navigate(R.id.show_coin_detail, bundle)
                     }
                 }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    /**
-                     * Context click listener to handle Right click events
-                     * from mice and trackpad input to provide a more native
-                     * experience on larger screen devices
-                     */
-                    setOnContextClickListener { v ->
-                        val item = v.tag as PlaceholderContent.PlaceholderItem
-                        Toast.makeText(
-                            v.context,
-                            "Context click of item " + item.id,
-                            Toast.LENGTH_LONG
-                        ).show()
-                        true
-                    }
+                /**
+                 * Context click listener to handle Right click events
+                 * from mice and trackpad input to provide a more native
+                 * experience on larger screen devices
+                 */
+                setOnContextClickListener { v ->
+                    val thisItem = v.tag as PlaceholderContent.PlaceholderItem
+                    Toast.makeText(
+                        v.context,
+                        "Context click of item " + thisItem.id,
+                        Toast.LENGTH_LONG
+                    ).show()
+                    true
                 }
 
                 setOnLongClickListener { v ->
@@ -155,28 +150,19 @@ class ItemListFragment : Fragment() {
                         clipItem
                     )
 
-                    if (Build.VERSION.SDK_INT >= 24) {
-                        v.startDragAndDrop(
-                            dragData,
-                            View.DragShadowBuilder(v),
-                            null,
-                            0
-                        )
-                    } else {
-                        v.startDrag(
-                            dragData,
-                            View.DragShadowBuilder(v),
-                            null,
-                            0
-                        )
-                    }
+                    v.startDragAndDrop(
+                        dragData,
+                        View.DragShadowBuilder(v),
+                        null,
+                        0
+                    )
                 }
             }
         }
 
         override fun getItemCount() = values.size
 
-        inner class ViewHolder(binding: ItemListContentBinding) : RecyclerView.ViewHolder(binding.root) {
+        inner class ViewHolder(binding: CoinListContentBinding) : RecyclerView.ViewHolder(binding.root) {
             val idView: TextView = binding.idText
             val contentView: TextView = binding.content
         }
