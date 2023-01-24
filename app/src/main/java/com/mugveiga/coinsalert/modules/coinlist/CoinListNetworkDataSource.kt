@@ -1,10 +1,10 @@
-package com.mugveiga.coinsalert.data.repository
+package com.mugveiga.coinsalert.modules.coinlist
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.mugveiga.coinsalert.data.api.CoinGeckoInterface
 import com.mugveiga.coinsalert.data.model.Coin
+import com.mugveiga.coinsalert.data.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
