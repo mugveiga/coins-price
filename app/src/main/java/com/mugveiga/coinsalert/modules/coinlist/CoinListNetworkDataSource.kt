@@ -33,8 +33,7 @@ class CoinListNetworkDataSource(
               _networkState.postValue(NetworkState.LOADED)
             },
             {
-              _networkState.postValue(NetworkState.ERROR)
-              NetworkState.customError(it.message)
+              _networkState.postValue(NetworkState.customError(it.message))
             }
           )
       )

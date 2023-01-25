@@ -16,6 +16,7 @@ import com.mugveiga.coinsalert.R
 import com.mugveiga.coinsalert.data.api.CoinGeckoClient
 import com.mugveiga.coinsalert.data.model.Coin
 import com.mugveiga.coinsalert.data.repository.NetworkState
+import com.mugveiga.coinsalert.data.repository.Status
 import com.mugveiga.coinsalert.databinding.CoinListContentBinding
 import com.mugveiga.coinsalert.databinding.FragmentCoinListBinding
 
@@ -61,7 +62,7 @@ class CoinListFragment : Fragment() {
 
     viewModel.networkState.observe(viewLifecycleOwner, Observer {
       binding.progressHorizontal?.visibility = if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
-      if (it == NetworkState.ERROR) Snackbar.make(binding.root, it.msg, Snackbar.LENGTH_SHORT).show()
+      if (it.status == Status.FAILED) Snackbar.make(binding.root, it.msg, Snackbar.LENGTH_SHORT).show()
     })
   }
 
