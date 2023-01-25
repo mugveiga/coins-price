@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.dagger.hilt.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -48,6 +49,10 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
     implementation "androidx.multidex:multidex:$multidex_version"
 
+    // Logger
+    implementation 'com.jakewharton.timber:timber:5.0.1'
+
+    // View Model
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
 
     // Navigation
@@ -70,7 +75,7 @@ dependencies {
 
     // Hilt
     implementation 'com.google.dagger:hilt-android:2.44.2'
-    annotationProcessor 'com.google.dagger:hilt-compiler:2.44.2'
+    kapt 'com.google.dagger:hilt-compiler:2.44.2'
 
     // TESTS //
 

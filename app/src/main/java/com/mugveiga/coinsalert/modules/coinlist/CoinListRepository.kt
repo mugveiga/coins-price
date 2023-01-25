@@ -6,12 +6,11 @@ import com.mugveiga.coinsalert.data.model.Coin
 import com.mugveiga.coinsalert.data.api.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 
-class CoinListRepository(private val apiService: CoinGeckoInterface) {
+class CoinListRepository constructor(
+  private val coinListNetworkDataSource: CoinListNetworkDataSource
+) {
 
-  lateinit var coinListNetworkDataSource: CoinListNetworkDataSource
-
-  fun getCoinList(compositeDisposable: CompositeDisposable): LiveData<List<Coin>> {
-    coinListNetworkDataSource = CoinListNetworkDataSource(apiService, compositeDisposable)
+  fun getCoinList(): LiveData<List<Coin>> {
     coinListNetworkDataSource.fetchCoinList()
     return coinListNetworkDataSource.coinListResponse
   }

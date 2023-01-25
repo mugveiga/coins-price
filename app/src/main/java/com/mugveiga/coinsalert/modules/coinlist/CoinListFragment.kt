@@ -6,35 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.mugveiga.coinsalert.CoinDetailFragment
 import com.mugveiga.coinsalert.R
-import com.mugveiga.coinsalert.data.api.CoinGeckoClient
-import com.mugveiga.coinsalert.data.model.Coin
 import com.mugveiga.coinsalert.data.api.NetworkState
 import com.mugveiga.coinsalert.data.api.Status
+import com.mugveiga.coinsalert.data.model.Coin
 import com.mugveiga.coinsalert.databinding.CoinListContentBinding
 import com.mugveiga.coinsalert.databinding.FragmentCoinListBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-/**
- * A Fragment representing a list of Coins. This fragment
- * has different presentations for handset and larger screen devices. On
- * handsets, the fragment presents a list of coins, which when touched,
- * lead to a {@link CoinDetailFragment} representing
- * coin details. On larger screens, the Navigation controller presents the list of coins and
- * coin details side-by-side using two vertical panes.
- */
+@AndroidEntryPoint
 class CoinListFragment : Fragment() {
 
+  private val viewModel: CoinListViewModel by viewModels()
   private var _binding: FragmentCoinListBinding? = null
   private val binding get() = _binding!!
-
-  private lateinit var viewModel: CoinListViewModel
-  private lateinit var coinListRepository: CoinListRepository
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -46,9 +37,6 @@ class CoinListFragment : Fragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
-    coinListRepository = CoinListRepository(CoinGeckoClient.getClient())
-    viewModel = getViewModel()
 
     val recyclerView: RecyclerView = binding.coinList
 
@@ -113,10 +101,5 @@ class CoinListFragment : Fragment() {
   override fun onDestroyView() {
     super.onDestroyView()
     _binding = null
-  }
-
-
-  private fun getViewModel(): CoinListViewModel {
-    return ViewModelProvider(this, CoinListViewModelFactory(coinListRepository))[CoinListViewModel::class.java]
   }
 }
