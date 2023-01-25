@@ -6,14 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.mugveiga.coinsalert.CoinDetailFragment
 import com.mugveiga.coinsalert.R
 import com.mugveiga.coinsalert.data.api.CoinGeckoClient
-import com.mugveiga.coinsalert.data.api.CoinGeckoInterface
 import com.mugveiga.coinsalert.data.model.Coin
+import com.mugveiga.coinsalert.data.repository.NetworkState
 import com.mugveiga.coinsalert.databinding.CoinListContentBinding
 import com.mugveiga.coinsalert.databinding.FragmentCoinListBinding
 
@@ -38,16 +40,14 @@ class CoinListFragment : Fragment() {
     savedInstanceState: Bundle?
   ): View {
     _binding = FragmentCoinListBinding.inflate(inflater, container, false)
-
-    val apiService: CoinGeckoInterface = CoinGeckoClient.getClient()
-    coinListRepository = CoinListRepository(apiService)
-    viewModel = getViewModel()
-
     return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+
+    coinListRepository = CoinListRepository(CoinGeckoClient.getClient())
+    viewModel = getViewModel()
 
     val recyclerView: RecyclerView = binding.coinList
 
@@ -55,14 +55,16 @@ class CoinListFragment : Fragment() {
     // layout configuration (layout, layout-sw600dp)
     val itemDetailFragmentContainer: View? = view.findViewById(R.id.item_detail_nav_container)
 
-    setupRecyclerView(recyclerView, itemDetailFragmentContainer)
+    viewModel.coinList.observe(viewLifecycleOwner, Observer {
+      recyclerView.adapter = SimpleItemRecyclerViewAdapter(it, itemDetailFragmentContainer)
+    })
+
+    viewModel.networkState.observe(viewLifecycleOwner, Observer {
+      binding.progressHorizontal?.visibility = if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
+      if (it == NetworkState.ERROR) Snackbar.make(binding.root, it.msg, Snackbar.LENGTH_SHORT).show()
+    })
   }
 
-  private fun setupRecyclerView(recyclerView: RecyclerView, itemDetailFragmentContainer: View?) {
-    recyclerView.adapter = SimpleItemRecyclerViewAdapter(
-      viewModel.coinList.value ?: ArrayList(), itemDetailFragmentContainer
-    )
-  }
 
   class SimpleItemRecyclerViewAdapter(
     private val values: List<Coin>,
@@ -71,7 +73,6 @@ class CoinListFragment : Fragment() {
     RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
       val binding = CoinListContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
       return ViewHolder(binding)
 
@@ -81,7 +82,6 @@ class CoinListFragment : Fragment() {
       val item = values[position]
       holder.idView.text = item.id
       holder.contentView.text = item.name
-
       with(holder.itemView) {
         tag = item
         setOnClickListener { itemView ->
@@ -114,7 +114,8 @@ class CoinListFragment : Fragment() {
     _binding = null
   }
 
+
   private fun getViewModel(): CoinListViewModel {
-    return ViewModelProvider(this)[CoinListViewModel::class.java]
+    return ViewModelProvider(this, CoinListViewModelFactory(coinListRepository))[CoinListViewModel::class.java]
   }
 }

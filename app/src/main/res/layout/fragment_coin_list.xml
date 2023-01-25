@@ -8,6 +8,14 @@
     android:layout_marginStart="@dimen/container_horizontal_margin"
     android:layout_marginEnd="@dimen/container_horizontal_margin">
 
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/coin_list"
         android:name="com.mugveiga.coinsalert.ItemListFragment"
