@@ -3,9 +3,8 @@ package com.mugveiga.coinsalert.modules.coinlist
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.CreationExtras
 import com.mugveiga.coinsalert.data.model.Coin
-import com.mugveiga.coinsalert.data.repository.NetworkState
+import com.mugveiga.coinsalert.data.api.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 
 

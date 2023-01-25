@@ -1,4 +1,4 @@
-package com.mugveiga.coinsalert.data.repository
+package com.mugveiga.coinsalert.data.api
 
 enum class Status { RUNNING, SUCCESS, FAILED }
 

@@ -15,8 +15,8 @@ import com.mugveiga.coinsalert.CoinDetailFragment
 import com.mugveiga.coinsalert.R
 import com.mugveiga.coinsalert.data.api.CoinGeckoClient
 import com.mugveiga.coinsalert.data.model.Coin
-import com.mugveiga.coinsalert.data.repository.NetworkState
-import com.mugveiga.coinsalert.data.repository.Status
+import com.mugveiga.coinsalert.data.api.NetworkState
+import com.mugveiga.coinsalert.data.api.Status
 import com.mugveiga.coinsalert.databinding.CoinListContentBinding
 import com.mugveiga.coinsalert.databinding.FragmentCoinListBinding
 
