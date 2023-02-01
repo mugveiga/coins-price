@@ -12,6 +12,10 @@ class CoinListViewModel @Inject constructor(
   private val coinListRepository: CoinListRepository,
 ) : ViewModel() {
 
+  fun refresh() {
+    coinListRepository.fetchCoinList()
+  }
+
   val coinList: LiveData<List<Coin>> by lazy {
     coinListRepository.getCoinList()
   }

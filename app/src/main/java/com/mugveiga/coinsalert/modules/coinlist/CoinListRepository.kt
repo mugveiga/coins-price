@@ -8,6 +8,10 @@ class CoinListRepository(
   private val coinListNetworkDataSource: CoinListNetworkDataSource
 ) {
 
+  fun fetchCoinList() {
+    coinListNetworkDataSource.fetchCoinList()
+  }
+
   fun getCoinList(): LiveData<List<Coin>> {
     coinListNetworkDataSource.fetchCoinList()
     return coinListNetworkDataSource.coinListResponse

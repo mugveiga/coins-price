@@ -42,9 +42,17 @@ class CoinListFragment : Fragment() {
     }
 
     viewModel.networkState.observe(viewLifecycleOwner) {
-      binding.progressHorizontal.visibility = if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
+      if (it == NetworkState.LOADING) {
+        binding.progressHorizontal.visibility = View.VISIBLE
+        binding.swipeRefreshLayout.isRefreshing = true
+      } else {
+        binding.progressHorizontal.visibility = View.GONE
+        binding.swipeRefreshLayout.isRefreshing = false
+      }
       if (it.status == Status.FAILED) Snackbar.make(binding.root, it.msg, Snackbar.LENGTH_SHORT).show()
     }
+
+    binding.swipeRefreshLayout.setOnRefreshListener { viewModel.refresh() }
   }
 
 
