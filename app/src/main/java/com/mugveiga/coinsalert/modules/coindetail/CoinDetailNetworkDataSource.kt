@@ -1,15 +1,16 @@
-package com.mugveiga.coinsalert.modules.coinlist
+package com.mugveiga.coinsalert.modules.coindetail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.mugveiga.coinsalert.data.api.CoinGeckoInterface
-import com.mugveiga.coinsalert.data.api.NetworkState
 import com.mugveiga.coinsalert.data.model.Coin
+import com.mugveiga.coinsalert.data.api.NetworkState
+import com.mugveiga.coinsalert.data.model.CoinPrice
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class CoinListNetworkDataSource @Inject constructor(
+class CoinDetailNetworkDataSource @Inject constructor(
   private val apiService: CoinGeckoInterface,
   private val compositeDisposable: CompositeDisposable
 ) {
@@ -18,19 +19,19 @@ class CoinListNetworkDataSource @Inject constructor(
   val networkState: LiveData<NetworkState>
     get() = _networkState
 
-  private val _coinListResponse = MutableLiveData<List<Coin>>()
-  val coinListResponse: LiveData<List<Coin>>
-    get() = _coinListResponse
+  private val _coinPriceResponse = MutableLiveData<CoinPrice>()
+  val coinPriceResponse: LiveData<CoinPrice>
+    get() = _coinPriceResponse
 
-  fun fetchCoinList() {
+  fun fetchCoinPrice(id: String) {
     _networkState.postValue(NetworkState.LOADING)
     try {
       compositeDisposable.add(
-        apiService.getCoinsList()
+        apiService.getCoinPrice(id)
           .subscribeOn(Schedulers.io())
           .subscribe(
             {
-              _coinListResponse.postValue(it)
+              _coinPriceResponse.postValue(it)
               _networkState.postValue(NetworkState.LOADED)
             },
             {

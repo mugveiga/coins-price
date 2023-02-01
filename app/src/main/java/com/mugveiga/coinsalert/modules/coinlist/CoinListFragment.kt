@@ -43,10 +43,10 @@ class CoinListFragment : Fragment() {
 
     viewModel.networkState.observe(viewLifecycleOwner) {
       if (it == NetworkState.LOADING) {
-        binding.progressHorizontal.visibility = View.VISIBLE
+        binding.progressBar.visibility = View.VISIBLE
         binding.swipeRefreshLayout.isRefreshing = true
       } else {
-        binding.progressHorizontal.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
         binding.swipeRefreshLayout.isRefreshing = false
       }
       if (it.status == Status.FAILED) Snackbar.make(binding.root, it.msg, Snackbar.LENGTH_SHORT).show()

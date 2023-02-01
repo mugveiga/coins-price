@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Coins Alert</string>
     <string name="coin_detail">Coin detail</string>
+    <string name="create_alert">Create alert</string>
 </resources>

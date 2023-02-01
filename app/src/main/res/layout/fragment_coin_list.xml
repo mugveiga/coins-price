@@ -9,7 +9,7 @@
     android:layout_marginEnd="@dimen/container_horizontal_margin">
 
     <ProgressBar
-        android:id="@+id/progress_horizontal"
+        android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/container_margin"
