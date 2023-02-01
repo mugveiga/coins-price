@@ -1,11 +1,11 @@
 package com.mugveiga.coinsalert
 
 import android.util.Log
-import androidx.annotation.NonNull
 import androidx.multidex.MultiDexApplication
 import dagger.hilt.android.HiltAndroidApp
-import timber.log.Timber.*
+import timber.log.Timber.DebugTree
 import timber.log.Timber.Forest.plant
+import timber.log.Timber.Tree
 
 
 @HiltAndroidApp

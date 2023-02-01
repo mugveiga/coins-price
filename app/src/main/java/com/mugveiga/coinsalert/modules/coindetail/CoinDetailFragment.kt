@@ -48,8 +48,8 @@ class CoinDetailFragment : Fragment() {
     }
 
     viewModel.coinPrice.observe(viewLifecycleOwner) {
-      binding.itemName.text = it.id
       binding.itemPrice.text = NumberFormat.getCurrencyInstance().format(it.usd)
+      binding.toolbarLayout.title = it.id
     }
 
     return rootView

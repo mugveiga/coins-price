@@ -53,20 +53,8 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/item_name"
-                style="?android:attr/textAppearanceLarge"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingStart="@dimen/container_horizontal_margin"
-                android:paddingTop="16dp"
-                android:paddingEnd="@dimen/container_horizontal_margin"
-                android:paddingBottom="16dp"
-                android:textIsSelectable="true"
-                tools:text="Name" />
-
-            <TextView
                 android:id="@+id/item_price"
-                style="?android:attr/textAppearanceMedium"
+                style="?android:attr/textAppearanceLarge"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/vertical_spacing"
@@ -75,7 +63,7 @@
                 android:paddingEnd="@dimen/container_horizontal_margin"
                 android:paddingBottom="16dp"
                 android:textIsSelectable="true"
-                app:layout_constraintTop_toBottomOf="@id/item_name"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="$ 100.00" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
