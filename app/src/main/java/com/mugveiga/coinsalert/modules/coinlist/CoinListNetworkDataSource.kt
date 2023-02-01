@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.mugveiga.coinsalert.data.api.CoinGeckoInterface
 import com.mugveiga.coinsalert.data.model.Coin
-import com.mugveiga.coinsalert.data.repository.NetworkState
+import com.mugveiga.coinsalert.data.api.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
