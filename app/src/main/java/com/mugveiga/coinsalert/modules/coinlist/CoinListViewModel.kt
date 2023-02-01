@@ -19,4 +19,5 @@ class CoinListViewModel @Inject constructor(
   val networkState: LiveData<NetworkState> by lazy {
     coinListRepository.getCoinListNetworkState()
   }
+
 }

@@ -49,7 +49,7 @@
             android:paddingEnd="@dimen/container_horizontal_margin"
             android:paddingBottom="16dp"
             android:textIsSelectable="true"
-            tools:context="com.mugveiga.coinsalert.CoinDetailFragment" />
+            tools:context="com.mugveiga.coinsalert.modules.coindetail.CoinDetailFragment" />
 
     </androidx.core.widget.NestedScrollView>
 

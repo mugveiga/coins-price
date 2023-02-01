@@ -26,3 +26,4 @@ hs_err_pid*
 
 # app build files
 app/build
+*.DS_Store

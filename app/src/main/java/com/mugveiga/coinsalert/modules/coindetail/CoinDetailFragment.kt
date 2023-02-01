@@ -1,4 +1,4 @@
-package com.mugveiga.coinsalert
+package com.mugveiga.coinsalert.modules.coindetail
 
 import android.os.Bundle
 import android.view.LayoutInflater

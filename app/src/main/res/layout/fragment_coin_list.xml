@@ -8,17 +8,17 @@
     android:layout_marginStart="@dimen/container_horizontal_margin"
     android:layout_marginEnd="@dimen/container_horizontal_margin">
 
-    <com.google.android.material.progressindicator.LinearProgressIndicator
+    <ProgressBar
         android:id="@+id/progress_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/container_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/coin_list"
-        android:name="com.mugveiga.coinsalert.ItemListFragment"
+        android:id="@+id/coin_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"

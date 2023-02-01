@@ -1,12 +1,10 @@
 package com.mugveiga.coinsalert.modules.coinlist
 
 import androidx.lifecycle.LiveData
-import com.mugveiga.coinsalert.data.api.CoinGeckoInterface
-import com.mugveiga.coinsalert.data.model.Coin
 import com.mugveiga.coinsalert.data.api.NetworkState
-import io.reactivex.disposables.CompositeDisposable
+import com.mugveiga.coinsalert.data.model.Coin
 
-class CoinListRepository constructor(
+class CoinListRepository(
   private val coinListNetworkDataSource: CoinListNetworkDataSource
 ) {
 
