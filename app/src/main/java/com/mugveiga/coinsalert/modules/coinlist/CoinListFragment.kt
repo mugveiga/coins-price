@@ -1,12 +1,14 @@
 package com.mugveiga.coinsalert.modules.coinlist
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -17,6 +19,7 @@ import com.mugveiga.coinsalert.data.model.Coin
 import com.mugveiga.coinsalert.databinding.CoinListContentBinding
 import com.mugveiga.coinsalert.databinding.FragmentCoinListBinding
 import com.mugveiga.coinsalert.modules.coindetail.CoinDetailFragment
+import com.mugveiga.coinsalert.views.RxSearchObservable
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,6 +42,7 @@ class CoinListFragment : Fragment() {
 
     viewModel.coinList.observe(viewLifecycleOwner) {
       binding.coinListView.adapter = CoinListItemViewAdapter(it)
+      binding.swipeRefreshLayout.isRefreshing = false
     }
 
     viewModel.networkState.observe(viewLifecycleOwner) {
@@ -53,8 +57,23 @@ class CoinListFragment : Fragment() {
     }
 
     binding.swipeRefreshLayout.setOnRefreshListener { viewModel.refresh() }
+
+    setupMenu()
   }
 
+  private fun setupMenu() {
+    (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
+      override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.main_menu, menu)
+      }
+
+      override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        val searchView = menuItem.actionView as SearchView
+        viewModel.filterCoins(RxSearchObservable.fromView(searchView))
+        return true
+      }
+    }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+  }
 
   class CoinListItemViewAdapter(
     private val values: List<Coin>

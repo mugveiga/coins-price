@@ -9,12 +9,11 @@ class CoinListRepository @Inject constructor(
   private val coinListNetworkDataSource: CoinListNetworkDataSource
 ) {
 
-  fun fetchCoinList() {
-    coinListNetworkDataSource.fetchCoinList()
+  fun fetchCoinList(filter: String? = null) {
+    coinListNetworkDataSource.fetchCoinList(filter)
   }
 
   fun getCoinList(): LiveData<List<Coin>> {
-    coinListNetworkDataSource.fetchCoinList()
     return coinListNetworkDataSource.coinListResponse
   }
 
