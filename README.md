@@ -1,7 +1,3 @@
-# coins-price
-
-List coins from Coingecko and fetch current coin price.
-
 This project is just a place for me to test Android use cases and use as a template for new projects.
 
 Its written in Kotlin. Actual setup:
